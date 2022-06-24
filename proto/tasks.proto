@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package krang;
+
+option go_package = "github.com/krang-backlink/krangio/proto;proto";
+
+message CompleteRequest {
+	string id = 1;
+	string scrape_id = 2;
+	string url = 3;
+	string group_slug = 4;
+	int64 task_id = 5;
+	string search_term = 6;
+}
+
+message Response {
+	bool error = 2;
+	string message = 3;
+}
+
+service TasksService {
+	rpc CompleteTask(CompleteRequest) returns(Response) {}
+}
