@@ -1,4 +1,4 @@
-module github.com/krang-backlink/krangio
+module github.com/krang-backlink/io
 
 go 1.18
 
