@@ -13,6 +13,10 @@ lint: # Run linter
 	golangci-lint run ./...
 .PHONY: lint
 
+generate: # Generate .go proto files
+	go generate ./...
+.PHONY: generate
+
 test: # Test uses race and coverage
 	go clean -testcache && go test -race -coverprofile=coverage.out -covermode=atomic
 .PHONY: test
