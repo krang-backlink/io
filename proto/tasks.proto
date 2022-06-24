@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package krang;
 
-option go_package = "github.com/krang-backlink/krangio/proto;proto";
+option go_package = "github.com/krang-backlink/io/proto;proto";
 
 message CompleteRequest {
 	string id = 1;

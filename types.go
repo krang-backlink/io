@@ -5,7 +5,7 @@
 package krangio
 
 import (
-	"github.com/krang-backlink/krangio/proto"
+	"github.com/krang-backlink/io/proto"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
