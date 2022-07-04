@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package krang;
+
+option go_package = "github.com/krang-backlink/io/proto;proto";
+
+message DispatchRequest {
+	repeated Page pages = 1;
+}
+
+message WorkerResponse {
+	bool error = 2;
+	string message = 3;
+}
+
+message Page {
+	string url = 1;
+	string group_slug = 2;
+	int64 task_id = 3;
+	string search_term = 4;
+}
+
+service WorkerService {
+	rpc Dispatch(DispatchRequest) returns(WorkerResponse) {}
+}
