@@ -55,24 +55,24 @@ func NewError(err error, service string, meta Meta) *Error {
 
 // MarshalJSON implements json encode.MarshalJSON to transform
 // the error into a formatted string.
-func (e *Error) MarshalJSON() ([]byte, error) {
-	var err wrappingError
-	if e.Err != nil {
-		err = wrappingError{
-			Code:      e.Err.Code,
-			Message:   e.Err.Message,
-			Operation: e.Err.Message,
-			Err:       e.Err.Error(),
-			FileLine:  e.Err.FileLine(),
-		}
-	}
-	me := marshalError{
-		Error:   err,
-		Service: e.Service,
-		Meta:    e.Meta,
-	}
-	return json.Marshal(me)
-}
+//func (e *Error) MarshalJSON() ([]byte, error) {
+//	var err wrappingError
+//	if e.Err != nil {
+//		err = wrappingError{
+//			Code:      e.Err.Code,
+//			Message:   e.Err.Message,
+//			Operation: e.Err.Message,
+//			Err:       e.Err.Error(),
+//			FileLine:  e.Err.FileLine(),
+//		}
+//	}
+//	me := marshalError{
+//		Error:   err,
+//		Service: e.Service,
+//		Meta:    e.Meta,
+//	}
+//	return json.Marshal(me)
+//}
 
 // Error returns the JSON representation of the error
 // message by implementing the error interface.

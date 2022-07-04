@@ -3,6 +3,8 @@ cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMT
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/ainsleyclark/errors v0.0.1 h1:xiKskV6yEtcdViEKFlxxuSBcj0/3HIzemb7WHBJnRRQ=
 github.com/ainsleyclark/errors v0.0.1/go.mod h1:nrPz6nlMilDXNc+hhd0OG1orC0x4eTRpCWu1M+D7i/I=
+github.com/ainsleyclark/errors v0.0.2 h1:NE9P41BxcH6nGWtJmoCtwFnAbR094bOwBBDPoDhHrFY=
+github.com/ainsleyclark/errors v0.0.2/go.mod h1:nrPz6nlMilDXNc+hhd0OG1orC0x4eTRpCWu1M+D7i/I=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/cespare/xxhash/v2 v2.1.1/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=

@@ -3,7 +3,7 @@ module github.com/krang-backlink/io
 go 1.18
 
 require (
-	github.com/ainsleyclark/errors v0.0.1
+	github.com/ainsleyclark/errors v0.0.2
 	go.mongodb.org/mongo-driver v1.9.1
 	google.golang.org/grpc v1.47.0
 	google.golang.org/protobuf v1.28.0
