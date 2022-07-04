@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -22,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WorkerServiceClient interface {
-	Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*WorkerResponse, error)
+	Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type workerServiceClient struct {
@@ -33,8 +34,8 @@ func NewWorkerServiceClient(cc grpc.ClientConnInterface) WorkerServiceClient {
 	return &workerServiceClient{cc}
 }
 
-func (c *workerServiceClient) Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*WorkerResponse, error) {
-	out := new(WorkerResponse)
+func (c *workerServiceClient) Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/krang.WorkerService/Dispatch", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -46,7 +47,7 @@ func (c *workerServiceClient) Dispatch(ctx context.Context, in *DispatchRequest,
 // All implementations must embed UnimplementedWorkerServiceServer
 // for forward compatibility
 type WorkerServiceServer interface {
-	Dispatch(context.Context, *DispatchRequest) (*WorkerResponse, error)
+	Dispatch(context.Context, *DispatchRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedWorkerServiceServer()
 }
 
@@ -54,7 +55,7 @@ type WorkerServiceServer interface {
 type UnimplementedWorkerServiceServer struct {
 }
 
-func (UnimplementedWorkerServiceServer) Dispatch(context.Context, *DispatchRequest) (*WorkerResponse, error) {
+func (UnimplementedWorkerServiceServer) Dispatch(context.Context, *DispatchRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Dispatch not implemented")
 }
 func (UnimplementedWorkerServiceServer) mustEmbedUnimplementedWorkerServiceServer() {}

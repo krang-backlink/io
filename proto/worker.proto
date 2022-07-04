@@ -1,10 +1,13 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
 package krang;
 
 option go_package = "github.com/krang-backlink/io/proto;proto";
 
 message DispatchRequest {
+	// TODO: This needs to have task ids etc etc
 	repeated Page pages = 1;
 }
 
@@ -21,5 +24,5 @@ message Page {
 }
 
 service WorkerService {
-	rpc Dispatch(DispatchRequest) returns(WorkerResponse) {}
+	rpc Dispatch(DispatchRequest) returns(google.protobuf.Empty) {}
 }
