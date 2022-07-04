@@ -23,6 +23,7 @@ type (
 		RelevancyScore uint                `json:"relevancy_score" bson:"relevancy_score"`
 		SiteScore      uint                `json:"site_score" bson:"site_score"`
 		Scrape         Scrape              `json:"scrape" bson:"scrape"`
+		Failed         bool                `json:"failed" bson:"failed"`
 		UpdatedAt      time.Time           `json:"updated_at" bson:"updated_at"`
 		CreatedAt      time.Time           `json:"created_at" bson:"created_at"`
 	}
@@ -38,11 +39,11 @@ type (
 	// ScrapeContent represents the HTML markup of a page including any
 	// <body> content that's relevant for scoring.
 	ScrapeContent struct {
-		H1            string `json:"h1" bson:"h1"`
-		H2            string `json:"h2" bson:"h2"`
-		Title         string `json:"title" bson:"title"`
-		ExternalLinks int    `json:"external_links" bson:"external_links"`
-		Body          string `json:"body" bson:"body"`
+		H1            string   `json:"h1" bson:"h1"`
+		H2            string   `json:"h2" bson:"h2"`
+		Title         string   `json:"title" bson:"title"`
+		ExternalLinks int      `json:"external_links" bson:"external_links"`
+		Keywords      []string `json:"keywords" bson:"keywords"`
 	}
 	// ScrapeMetrics represents the scores and metrics retrieved from
 	// Ahrefs, Moz and Majestic.
