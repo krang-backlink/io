@@ -10,9 +10,27 @@ message DispatchRequest {
 	int64 task_id = 1;
 	string group_slug = 2;
 	string search_term = 3;
-	repeated string pages = 4;
+	repeated Page pages = 4;
+}
+
+message Page {
+	string url = 1;
+	string search_iterm = 2;
+}
+
+message CompletePageRequest {
+	string id = 1;
+	string scrape_id = 2;
+	string url = 3;
+	string group_slug = 4;
+	int64 task_id = 5;
+	string search_term = 6;
 }
 
 service WorkerService {
 	rpc Dispatch(DispatchRequest) returns(google.protobuf.Empty) {}
+	rpc CompletePage(CompletePageRequest) returns(google.protobuf.Empty) {}
 }
+
+
+

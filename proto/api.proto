@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package krang;
+
+option go_package = "github.com/krang-backlink/io/proto;proto";
+
+message CompleteRequest {
+	int64 task_id = 1;
+}
+
+service APIService {
+	rpc CompleteTask(CompleteRequest) returns(google.protobuf.Empty) {}
+}
