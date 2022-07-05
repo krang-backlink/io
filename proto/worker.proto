@@ -22,7 +22,7 @@ message Page {
 	string search_term = 6;
 }
 
-service WorkerServer {
+service Worker {
 	rpc Dispatch(DispatchRequest) returns(google.protobuf.Empty) {}
 	rpc CompletePage(Page) returns(google.protobuf.Empty) {}
 }

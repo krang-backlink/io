@@ -10,6 +10,6 @@ message CompleteRequest {
 	int64 task_id = 1;
 }
 
-service APIServer {
+service API {
 	rpc CompleteTask(CompleteRequest) returns(google.protobuf.Empty) {}
 }
