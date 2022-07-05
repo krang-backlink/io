@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type APIClient interface {
-	CompleteTask(ctx context.Context, in *CompleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	CompleteTask(ctx context.Context, in *CompleteTaskRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type aPIClient struct {
@@ -34,7 +34,7 @@ func NewAPIClient(cc grpc.ClientConnInterface) APIClient {
 	return &aPIClient{cc}
 }
 
-func (c *aPIClient) CompleteTask(ctx context.Context, in *CompleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *aPIClient) CompleteTask(ctx context.Context, in *CompleteTaskRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/krang.API/CompleteTask", in, out, opts...)
 	if err != nil {
@@ -47,7 +47,7 @@ func (c *aPIClient) CompleteTask(ctx context.Context, in *CompleteRequest, opts 
 // All implementations must embed UnimplementedAPIServer
 // for forward compatibility
 type APIServer interface {
-	CompleteTask(context.Context, *CompleteRequest) (*emptypb.Empty, error)
+	CompleteTask(context.Context, *CompleteTaskRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedAPIServer()
 }
 
@@ -55,7 +55,7 @@ type APIServer interface {
 type UnimplementedAPIServer struct {
 }
 
-func (UnimplementedAPIServer) CompleteTask(context.Context, *CompleteRequest) (*emptypb.Empty, error) {
+func (UnimplementedAPIServer) CompleteTask(context.Context, *CompleteTaskRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CompleteTask not implemented")
 }
 func (UnimplementedAPIServer) mustEmbedUnimplementedAPIServer() {}
@@ -72,7 +72,7 @@ func RegisterAPIServer(s grpc.ServiceRegistrar, srv APIServer) {
 }
 
 func _API_CompleteTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CompleteRequest)
+	in := new(CompleteTaskRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func _API_CompleteTask_Handler(srv interface{}, ctx context.Context, dec func(in
 		FullMethod: "/krang.API/CompleteTask",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(APIServer).CompleteTask(ctx, req.(*CompleteRequest))
+		return srv.(APIServer).CompleteTask(ctx, req.(*CompleteTaskRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

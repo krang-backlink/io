@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WorkerClient interface {
-	Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DispatchTask(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	CompletePage(ctx context.Context, in *CompletePageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -35,9 +35,9 @@ func NewWorkerClient(cc grpc.ClientConnInterface) WorkerClient {
 	return &workerClient{cc}
 }
 
-func (c *workerClient) Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *workerClient) DispatchTask(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/krang.Worker/Dispatch", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/krang.Worker/DispatchTask", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *workerClient) CompletePage(ctx context.Context, in *CompletePageRequest
 // All implementations must embed UnimplementedWorkerServer
 // for forward compatibility
 type WorkerServer interface {
-	Dispatch(context.Context, *DispatchRequest) (*emptypb.Empty, error)
+	DispatchTask(context.Context, *DispatchRequest) (*emptypb.Empty, error)
 	CompletePage(context.Context, *CompletePageRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedWorkerServer()
 }
@@ -66,8 +66,8 @@ type WorkerServer interface {
 type UnimplementedWorkerServer struct {
 }
 
-func (UnimplementedWorkerServer) Dispatch(context.Context, *DispatchRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Dispatch not implemented")
+func (UnimplementedWorkerServer) DispatchTask(context.Context, *DispatchRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DispatchTask not implemented")
 }
 func (UnimplementedWorkerServer) CompletePage(context.Context, *CompletePageRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CompletePage not implemented")
@@ -85,20 +85,20 @@ func RegisterWorkerServer(s grpc.ServiceRegistrar, srv WorkerServer) {
 	s.RegisterService(&Worker_ServiceDesc, srv)
 }
 
-func _Worker_Dispatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Worker_DispatchTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DispatchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WorkerServer).Dispatch(ctx, in)
+		return srv.(WorkerServer).DispatchTask(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/krang.Worker/Dispatch",
+		FullMethod: "/krang.Worker/DispatchTask",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkerServer).Dispatch(ctx, req.(*DispatchRequest))
+		return srv.(WorkerServer).DispatchTask(ctx, req.(*DispatchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -129,8 +129,8 @@ var Worker_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*WorkerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Dispatch",
-			Handler:    _Worker_Dispatch_Handler,
+			MethodName: "DispatchTask",
+			Handler:    _Worker_DispatchTask_Handler,
 		},
 		{
 			MethodName: "CompletePage",

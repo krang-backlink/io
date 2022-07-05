@@ -18,7 +18,6 @@ message CompletePageRequest {
 	Page page = 2;
 }
 
-
 message Page {
 	string id = 1;
 	string scrape_id = 2;
@@ -29,7 +28,7 @@ message Page {
 }
 
 service Worker {
-	rpc Dispatch(DispatchRequest) returns(google.protobuf.Empty) {}
+	rpc DispatchTask(DispatchRequest) returns(google.protobuf.Empty) {}
 	rpc CompletePage(CompletePageRequest) returns(google.protobuf.Empty) {}
 }
 

@@ -22,7 +22,8 @@ type (
 		RelevancyScore uint                `json:"relevancy_score" bson:"relevancy_score"`
 		SiteScore      uint                `json:"site_score" bson:"site_score"`
 		Scrape         Scrape              `json:"scrape" bson:"scrape"`
-		Failed         bool                `json:"failed" bson:"failed"`
+		Message        string              `json:"message" bson:"message"`
+		Status         PageStatus          `json:"status" bson:"status"`
 		UpdatedAt      time.Time           `json:"updated_at" bson:"updated_at"`
 		CreatedAt      time.Time           `json:"created_at" bson:"created_at"`
 	}
@@ -56,20 +57,18 @@ type (
 		MajesticCF   int           `json:"majestic_cf" bson:"majestic_cf"` // Citation Flow
 		MajesticTF   int           `json:"majestic_tf" bson:"majestic_tf"` // Trust Flow
 	}
+	// PageStatus status represents the status of a page task.
+	PageStatus string
 )
 
-//// ToProto transforms a Page into a proto Complete request.
-//func (p *Page) ToProto() *proto.CompleteRequest {
-//	scrapeID := ""
-//	if p.ScrapeID != nil {
-//		scrapeID = p.ScrapeID.Hex()
-//	}
-//	return &proto.CompleteRequest{
-//		Id:         p.ID.Hex(),
-//		ScrapeId:   scrapeID,
-//		Url:        p.URL,
-//		GroupSlug:  p.GroupSlug,
-//		TaskId:     p.TaskID,
-//		SearchTerm: p.SearchTerm,
-//	}
-//}
+const (
+	// PageStatusFailed is the status that defines
+	// a failed page task.
+	PageStatusFailed PageStatus = "failed"
+	// PageStatusTimedOut is the status that defines
+	// a timed out page task.
+	PageStatusTimedOut PageStatus = "timed-out"
+	// PageStatusSuccess is the status that defines
+	// a successful page task.
+	PageStatusSuccess PageStatus = "success"
+)
