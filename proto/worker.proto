@@ -7,20 +7,10 @@ package krang;
 option go_package = "github.com/krang-backlink/io/proto;proto";
 
 message DispatchRequest {
-	// TODO: This needs to have task ids etc etc
-	repeated Page pages = 1;
-}
-
-message WorkerResponse {
-	bool error = 2;
-	string message = 3;
-}
-
-message Page {
-	string url = 1;
+	int64 task_id = 1;
 	string group_slug = 2;
-	int64 task_id = 3;
-	string search_term = 4;
+	string search_term = 3;
+	repeated string pages = 4;
 }
 
 service WorkerService {
