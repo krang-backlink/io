@@ -15,7 +15,8 @@ message DispatchRequest {
 
 message CompletePageRequest {
 	bool error = 1;
-	Page page = 2;
+	string message = 2;
+	Page page = 3;
 }
 
 message Page {
