@@ -19,86 +19,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// APIServiceClient is the client API for APIService service.
+// APIServerClient is the client API for APIServer service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type APIServiceClient interface {
+type APIServerClient interface {
 	CompleteTask(ctx context.Context, in *CompleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
-type aPIServiceClient struct {
+type aPIServerClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewAPIServiceClient(cc grpc.ClientConnInterface) APIServiceClient {
-	return &aPIServiceClient{cc}
+func NewAPIServerClient(cc grpc.ClientConnInterface) APIServerClient {
+	return &aPIServerClient{cc}
 }
 
-func (c *aPIServiceClient) CompleteTask(ctx context.Context, in *CompleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *aPIServerClient) CompleteTask(ctx context.Context, in *CompleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/krang.APIService/CompleteTask", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/krang.APIServer/CompleteTask", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// APIServiceServer is the server API for APIService service.
-// All implementations must embed UnimplementedAPIServiceServer
+// APIServerServer is the server API for APIServer service.
+// All implementations must embed UnimplementedAPIServerServer
 // for forward compatibility
-type APIServiceServer interface {
+type APIServerServer interface {
 	CompleteTask(context.Context, *CompleteRequest) (*emptypb.Empty, error)
-	mustEmbedUnimplementedAPIServiceServer()
+	mustEmbedUnimplementedAPIServerServer()
 }
 
-// UnimplementedAPIServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedAPIServiceServer struct {
+// UnimplementedAPIServerServer must be embedded to have forward compatible implementations.
+type UnimplementedAPIServerServer struct {
 }
 
-func (UnimplementedAPIServiceServer) CompleteTask(context.Context, *CompleteRequest) (*emptypb.Empty, error) {
+func (UnimplementedAPIServerServer) CompleteTask(context.Context, *CompleteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CompleteTask not implemented")
 }
-func (UnimplementedAPIServiceServer) mustEmbedUnimplementedAPIServiceServer() {}
+func (UnimplementedAPIServerServer) mustEmbedUnimplementedAPIServerServer() {}
 
-// UnsafeAPIServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to APIServiceServer will
+// UnsafeAPIServerServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to APIServerServer will
 // result in compilation errors.
-type UnsafeAPIServiceServer interface {
-	mustEmbedUnimplementedAPIServiceServer()
+type UnsafeAPIServerServer interface {
+	mustEmbedUnimplementedAPIServerServer()
 }
 
-func RegisterAPIServiceServer(s grpc.ServiceRegistrar, srv APIServiceServer) {
-	s.RegisterService(&APIService_ServiceDesc, srv)
+func RegisterAPIServerServer(s grpc.ServiceRegistrar, srv APIServerServer) {
+	s.RegisterService(&APIServer_ServiceDesc, srv)
 }
 
-func _APIService_CompleteTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _APIServer_CompleteTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CompleteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(APIServiceServer).CompleteTask(ctx, in)
+		return srv.(APIServerServer).CompleteTask(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/krang.APIService/CompleteTask",
+		FullMethod: "/krang.APIServer/CompleteTask",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(APIServiceServer).CompleteTask(ctx, req.(*CompleteRequest))
+		return srv.(APIServerServer).CompleteTask(ctx, req.(*CompleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// APIService_ServiceDesc is the grpc.ServiceDesc for APIService service.
+// APIServer_ServiceDesc is the grpc.ServiceDesc for APIServer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var APIService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "krang.APIService",
-	HandlerType: (*APIServiceServer)(nil),
+var APIServer_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "krang.APIServer",
+	HandlerType: (*APIServerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CompleteTask",
-			Handler:    _APIService_CompleteTask_Handler,
+			Handler:    _APIServer_CompleteTask_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

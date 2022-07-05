@@ -19,122 +19,122 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// WorkerServiceClient is the client API for WorkerService service.
+// WorkerServerClient is the client API for WorkerServer service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type WorkerServiceClient interface {
+type WorkerServerClient interface {
 	Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	CompletePage(ctx context.Context, in *CompletePageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	CompletePage(ctx context.Context, in *Page, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
-type workerServiceClient struct {
+type workerServerClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewWorkerServiceClient(cc grpc.ClientConnInterface) WorkerServiceClient {
-	return &workerServiceClient{cc}
+func NewWorkerServerClient(cc grpc.ClientConnInterface) WorkerServerClient {
+	return &workerServerClient{cc}
 }
 
-func (c *workerServiceClient) Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *workerServerClient) Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/krang.WorkerService/Dispatch", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/krang.WorkerServer/Dispatch", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *workerServiceClient) CompletePage(ctx context.Context, in *CompletePageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *workerServerClient) CompletePage(ctx context.Context, in *Page, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/krang.WorkerService/CompletePage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/krang.WorkerServer/CompletePage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// WorkerServiceServer is the server API for WorkerService service.
-// All implementations must embed UnimplementedWorkerServiceServer
+// WorkerServerServer is the server API for WorkerServer service.
+// All implementations must embed UnimplementedWorkerServerServer
 // for forward compatibility
-type WorkerServiceServer interface {
+type WorkerServerServer interface {
 	Dispatch(context.Context, *DispatchRequest) (*emptypb.Empty, error)
-	CompletePage(context.Context, *CompletePageRequest) (*emptypb.Empty, error)
-	mustEmbedUnimplementedWorkerServiceServer()
+	CompletePage(context.Context, *Page) (*emptypb.Empty, error)
+	mustEmbedUnimplementedWorkerServerServer()
 }
 
-// UnimplementedWorkerServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedWorkerServiceServer struct {
+// UnimplementedWorkerServerServer must be embedded to have forward compatible implementations.
+type UnimplementedWorkerServerServer struct {
 }
 
-func (UnimplementedWorkerServiceServer) Dispatch(context.Context, *DispatchRequest) (*emptypb.Empty, error) {
+func (UnimplementedWorkerServerServer) Dispatch(context.Context, *DispatchRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Dispatch not implemented")
 }
-func (UnimplementedWorkerServiceServer) CompletePage(context.Context, *CompletePageRequest) (*emptypb.Empty, error) {
+func (UnimplementedWorkerServerServer) CompletePage(context.Context, *Page) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CompletePage not implemented")
 }
-func (UnimplementedWorkerServiceServer) mustEmbedUnimplementedWorkerServiceServer() {}
+func (UnimplementedWorkerServerServer) mustEmbedUnimplementedWorkerServerServer() {}
 
-// UnsafeWorkerServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to WorkerServiceServer will
+// UnsafeWorkerServerServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to WorkerServerServer will
 // result in compilation errors.
-type UnsafeWorkerServiceServer interface {
-	mustEmbedUnimplementedWorkerServiceServer()
+type UnsafeWorkerServerServer interface {
+	mustEmbedUnimplementedWorkerServerServer()
 }
 
-func RegisterWorkerServiceServer(s grpc.ServiceRegistrar, srv WorkerServiceServer) {
-	s.RegisterService(&WorkerService_ServiceDesc, srv)
+func RegisterWorkerServerServer(s grpc.ServiceRegistrar, srv WorkerServerServer) {
+	s.RegisterService(&WorkerServer_ServiceDesc, srv)
 }
 
-func _WorkerService_Dispatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _WorkerServer_Dispatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DispatchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WorkerServiceServer).Dispatch(ctx, in)
+		return srv.(WorkerServerServer).Dispatch(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/krang.WorkerService/Dispatch",
+		FullMethod: "/krang.WorkerServer/Dispatch",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkerServiceServer).Dispatch(ctx, req.(*DispatchRequest))
+		return srv.(WorkerServerServer).Dispatch(ctx, req.(*DispatchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WorkerService_CompletePage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CompletePageRequest)
+func _WorkerServer_CompletePage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Page)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WorkerServiceServer).CompletePage(ctx, in)
+		return srv.(WorkerServerServer).CompletePage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/krang.WorkerService/CompletePage",
+		FullMethod: "/krang.WorkerServer/CompletePage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkerServiceServer).CompletePage(ctx, req.(*CompletePageRequest))
+		return srv.(WorkerServerServer).CompletePage(ctx, req.(*Page))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// WorkerService_ServiceDesc is the grpc.ServiceDesc for WorkerService service.
+// WorkerServer_ServiceDesc is the grpc.ServiceDesc for WorkerServer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var WorkerService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "krang.WorkerService",
-	HandlerType: (*WorkerServiceServer)(nil),
+var WorkerServer_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "krang.WorkerServer",
+	HandlerType: (*WorkerServerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Dispatch",
-			Handler:    _WorkerService_Dispatch_Handler,
+			Handler:    _WorkerServer_Dispatch_Handler,
 		},
 		{
 			MethodName: "CompletePage",
-			Handler:    _WorkerService_CompletePage_Handler,
+			Handler:    _WorkerServer_CompletePage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
