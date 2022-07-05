@@ -5,7 +5,6 @@
 package krangio
 
 import (
-	"github.com/krang-backlink/io/proto"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
@@ -59,18 +58,18 @@ type (
 	}
 )
 
-// ToProto transforms a Page into a proto Complete request.
-func (p *Page) ToProto() *proto.CompleteRequest {
-	scrapeID := ""
-	if p.ScrapeID != nil {
-		scrapeID = p.ScrapeID.Hex()
-	}
-	return &proto.CompleteRequest{
-		Id:         p.ID.Hex(),
-		ScrapeId:   scrapeID,
-		Url:        p.URL,
-		GroupSlug:  p.GroupSlug,
-		TaskId:     p.TaskID,
-		SearchTerm: p.SearchTerm,
-	}
-}
+//// ToProto transforms a Page into a proto Complete request.
+//func (p *Page) ToProto() *proto.CompleteRequest {
+//	scrapeID := ""
+//	if p.ScrapeID != nil {
+//		scrapeID = p.ScrapeID.Hex()
+//	}
+//	return &proto.CompleteRequest{
+//		Id:         p.ID.Hex(),
+//		ScrapeId:   scrapeID,
+//		Url:        p.URL,
+//		GroupSlug:  p.GroupSlug,
+//		TaskId:     p.TaskID,
+//		SearchTerm: p.SearchTerm,
+//	}
+//}
