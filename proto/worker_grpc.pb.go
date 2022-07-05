@@ -24,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WorkerClient interface {
 	Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	CompletePage(ctx context.Context, in *Page, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	CompletePage(ctx context.Context, in *CompletePageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type workerClient struct {
@@ -44,7 +44,7 @@ func (c *workerClient) Dispatch(ctx context.Context, in *DispatchRequest, opts .
 	return out, nil
 }
 
-func (c *workerClient) CompletePage(ctx context.Context, in *Page, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *workerClient) CompletePage(ctx context.Context, in *CompletePageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/krang.Worker/CompletePage", in, out, opts...)
 	if err != nil {
@@ -58,7 +58,7 @@ func (c *workerClient) CompletePage(ctx context.Context, in *Page, opts ...grpc.
 // for forward compatibility
 type WorkerServer interface {
 	Dispatch(context.Context, *DispatchRequest) (*emptypb.Empty, error)
-	CompletePage(context.Context, *Page) (*emptypb.Empty, error)
+	CompletePage(context.Context, *CompletePageRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedWorkerServer()
 }
 
@@ -69,7 +69,7 @@ type UnimplementedWorkerServer struct {
 func (UnimplementedWorkerServer) Dispatch(context.Context, *DispatchRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Dispatch not implemented")
 }
-func (UnimplementedWorkerServer) CompletePage(context.Context, *Page) (*emptypb.Empty, error) {
+func (UnimplementedWorkerServer) CompletePage(context.Context, *CompletePageRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CompletePage not implemented")
 }
 func (UnimplementedWorkerServer) mustEmbedUnimplementedWorkerServer() {}
@@ -104,7 +104,7 @@ func _Worker_Dispatch_Handler(srv interface{}, ctx context.Context, dec func(int
 }
 
 func _Worker_CompletePage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Page)
+	in := new(CompletePageRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -116,7 +116,7 @@ func _Worker_CompletePage_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/krang.Worker/CompletePage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkerServer).CompletePage(ctx, req.(*Page))
+		return srv.(WorkerServer).CompletePage(ctx, req.(*CompletePageRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
