@@ -14,11 +14,6 @@ message DispatchRequest {
 }
 
 message Page {
-	string url = 1;
-	string search_iterm = 2;
-}
-
-message CompletePageRequest {
 	string id = 1;
 	string scrape_id = 2;
 	string url = 3;
@@ -27,9 +22,11 @@ message CompletePageRequest {
 	string search_term = 6;
 }
 
+
+
 service WorkerService {
 	rpc Dispatch(DispatchRequest) returns(google.protobuf.Empty) {}
-	rpc CompletePage(CompletePageRequest) returns(google.protobuf.Empty) {}
+	rpc CompletePage(Page) returns(google.protobuf.Empty) {}
 }
 
 
