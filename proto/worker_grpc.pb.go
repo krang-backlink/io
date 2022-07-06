@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -18,86 +19,122 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// WorkerServiceClient is the client API for WorkerService service.
+// WorkerClient is the client API for Worker service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type WorkerServiceClient interface {
-	Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*WorkerResponse, error)
+type WorkerClient interface {
+	DispatchTask(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	CompletePage(ctx context.Context, in *CompletePageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
-type workerServiceClient struct {
+type workerClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewWorkerServiceClient(cc grpc.ClientConnInterface) WorkerServiceClient {
-	return &workerServiceClient{cc}
+func NewWorkerClient(cc grpc.ClientConnInterface) WorkerClient {
+	return &workerClient{cc}
 }
 
-func (c *workerServiceClient) Dispatch(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*WorkerResponse, error) {
-	out := new(WorkerResponse)
-	err := c.cc.Invoke(ctx, "/krang.WorkerService/Dispatch", in, out, opts...)
+func (c *workerClient) DispatchTask(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/krang.Worker/DispatchTask", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// WorkerServiceServer is the server API for WorkerService service.
-// All implementations must embed UnimplementedWorkerServiceServer
+func (c *workerClient) CompletePage(ctx context.Context, in *CompletePageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/krang.Worker/CompletePage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// WorkerServer is the server API for Worker service.
+// All implementations must embed UnimplementedWorkerServer
 // for forward compatibility
-type WorkerServiceServer interface {
-	Dispatch(context.Context, *DispatchRequest) (*WorkerResponse, error)
-	mustEmbedUnimplementedWorkerServiceServer()
+type WorkerServer interface {
+	DispatchTask(context.Context, *DispatchRequest) (*emptypb.Empty, error)
+	CompletePage(context.Context, *CompletePageRequest) (*emptypb.Empty, error)
+	mustEmbedUnimplementedWorkerServer()
 }
 
-// UnimplementedWorkerServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedWorkerServiceServer struct {
+// UnimplementedWorkerServer must be embedded to have forward compatible implementations.
+type UnimplementedWorkerServer struct {
 }
 
-func (UnimplementedWorkerServiceServer) Dispatch(context.Context, *DispatchRequest) (*WorkerResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Dispatch not implemented")
+func (UnimplementedWorkerServer) DispatchTask(context.Context, *DispatchRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DispatchTask not implemented")
 }
-func (UnimplementedWorkerServiceServer) mustEmbedUnimplementedWorkerServiceServer() {}
+func (UnimplementedWorkerServer) CompletePage(context.Context, *CompletePageRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompletePage not implemented")
+}
+func (UnimplementedWorkerServer) mustEmbedUnimplementedWorkerServer() {}
 
-// UnsafeWorkerServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to WorkerServiceServer will
+// UnsafeWorkerServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to WorkerServer will
 // result in compilation errors.
-type UnsafeWorkerServiceServer interface {
-	mustEmbedUnimplementedWorkerServiceServer()
+type UnsafeWorkerServer interface {
+	mustEmbedUnimplementedWorkerServer()
 }
 
-func RegisterWorkerServiceServer(s grpc.ServiceRegistrar, srv WorkerServiceServer) {
-	s.RegisterService(&WorkerService_ServiceDesc, srv)
+func RegisterWorkerServer(s grpc.ServiceRegistrar, srv WorkerServer) {
+	s.RegisterService(&Worker_ServiceDesc, srv)
 }
 
-func _WorkerService_Dispatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Worker_DispatchTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DispatchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WorkerServiceServer).Dispatch(ctx, in)
+		return srv.(WorkerServer).DispatchTask(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/krang.WorkerService/Dispatch",
+		FullMethod: "/krang.Worker/DispatchTask",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkerServiceServer).Dispatch(ctx, req.(*DispatchRequest))
+		return srv.(WorkerServer).DispatchTask(ctx, req.(*DispatchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// WorkerService_ServiceDesc is the grpc.ServiceDesc for WorkerService service.
+func _Worker_CompletePage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompletePageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkerServer).CompletePage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/krang.Worker/CompletePage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkerServer).CompletePage(ctx, req.(*CompletePageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Worker_ServiceDesc is the grpc.ServiceDesc for Worker service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var WorkerService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "krang.WorkerService",
-	HandlerType: (*WorkerServiceServer)(nil),
+var Worker_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "krang.Worker",
+	HandlerType: (*WorkerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Dispatch",
-			Handler:    _WorkerService_Dispatch_Handler,
+			MethodName: "DispatchTask",
+			Handler:    _Worker_DispatchTask_Handler,
+		},
+		{
+			MethodName: "CompletePage",
+			Handler:    _Worker_CompletePage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

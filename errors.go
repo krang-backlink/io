@@ -20,6 +20,7 @@ type (
 	// Meta represents the attributes of a failed task.
 	Meta struct {
 		GroupSlug  string         `json:"group_slug"`
+		ProjectID  int64          `json:"project_id"`
 		TaskID     int64          `json:"task_id"`
 		ScrapeID   string         `json:"scrape_id"`
 		URL        string         `json:"url"`
@@ -52,27 +53,6 @@ func NewError(err error, service string, meta Meta) *Error {
 		Meta:    meta,
 	}
 }
-
-// MarshalJSON implements json encode.MarshalJSON to transform
-// the error into a formatted string.
-//func (e *Error) MarshalJSON() ([]byte, error) {
-//	var err wrappingError
-//	if e.Err != nil {
-//		err = wrappingError{
-//			Code:      e.Err.Code,
-//			Message:   e.Err.Message,
-//			Operation: e.Err.Message,
-//			Err:       e.Err.Error(),
-//			FileLine:  e.Err.FileLine(),
-//		}
-//	}
-//	me := marshalError{
-//		Error:   err,
-//		Service: e.Service,
-//		Meta:    e.Meta,
-//	}
-//	return json.Marshal(me)
-//}
 
 // Error returns the JSON representation of the error
 // message by implementing the error interface.

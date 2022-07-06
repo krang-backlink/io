@@ -5,7 +5,6 @@
 package krangio
 
 import (
-	"github.com/krang-backlink/io/proto"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
@@ -17,13 +16,15 @@ type (
 		ID             primitive.ObjectID  `json:"id" bson:"_id,omitempty"`
 		ScrapeID       *primitive.ObjectID `json:"scrape_id" bson:"scrape_id"`
 		URL            string              `json:"url" bson:"url"`
-		GroupSlug      string              `json:"group_slug" bson:"group_slug,omitempty" `
+		GroupSlug      string              `json:"group_slug" bson:"group_slug,omitempty"`
+		ProjectID      int64               `json:"project_id" bson:"project_id,omitempty"`
 		TaskID         int64               `json:"task_id" bson:"task_id,omitempty" `
 		SearchTerm     string              `json:"search_term" bson:"search_term"`
-		RelevancyScore uint                `json:"relevancy_score" bson:"relevancy_score"`
-		SiteScore      uint                `json:"site_score" bson:"site_score"`
+		RelevancyScore int                 `json:"relevancy_score" bson:"relevancy_score"`
+		SiteScore      int                 `json:"site_score" bson:"site_score"`
 		Scrape         Scrape              `json:"scrape" bson:"scrape"`
-		Failed         bool                `json:"failed" bson:"failed"`
+		Message        string              `json:"message" bson:"message"`
+		Status         PageStatus          `json:"status" bson:"status"`
 		UpdatedAt      time.Time           `json:"updated_at" bson:"updated_at"`
 		CreatedAt      time.Time           `json:"created_at" bson:"created_at"`
 	}
@@ -50,27 +51,25 @@ type (
 	ScrapeMetrics struct {
 		Backlinks    int           `json:"backlinks" bson:"backlinks"`
 		LoadingTime  time.Duration `json:"loading_time" bson:"loading_time"`
-		AhrefsDA     int           `json:"ahrefs_da" bson:"ahrefs_da"` // Domain Authority
+		AhrefsDR     int           `json:"ahrefs_dr" bson:"ahrefs_dr"` // Domain Ranking
 		MozPA        int           `json:"moz_pa" bson:"moz_pa"`       // Page Authority
 		MozDA        int           `json:"moz_da" bson:"moz_da"`       // Domain Authority
 		MozSpamScore int           `json:"moz_spam_score" bson:"moz_spam_score"`
 		MajesticCF   int           `json:"majestic_cf" bson:"majestic_cf"` // Citation Flow
 		MajesticTF   int           `json:"majestic_tf" bson:"majestic_tf"` // Trust Flow
 	}
+	// PageStatus status represents the status of a page task.
+	PageStatus string
 )
 
-// ToProto transforms a Page into a proto Complete request.
-func (p *Page) ToProto() *proto.CompleteRequest {
-	scrapeID := ""
-	if p.ScrapeID != nil {
-		scrapeID = p.ScrapeID.Hex()
-	}
-	return &proto.CompleteRequest{
-		Id:         p.ID.Hex(),
-		ScrapeId:   scrapeID,
-		Url:        p.URL,
-		GroupSlug:  p.GroupSlug,
-		TaskId:     p.TaskID,
-		SearchTerm: p.SearchTerm,
-	}
-}
+const (
+	// PageStatusFailed is the status that defines
+	// a failed page task.
+	PageStatusFailed PageStatus = "failed"
+	// PageStatusTimedOut is the status that defines
+	// a timed out page task.
+	PageStatusTimedOut PageStatus = "timed-out"
+	// PageStatusSuccess is the status that defines
+	// a successful page task.
+	PageStatusSuccess PageStatus = "success"
+)
