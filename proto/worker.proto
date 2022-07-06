@@ -9,8 +9,9 @@ option go_package = "github.com/krang-backlink/io/proto;proto";
 message DispatchRequest {
 	int64 task_id = 1;
 	string group_slug = 2;
-	string search_term = 3;
-	repeated Page pages = 4;
+	int64 project_id = 3;
+	string search_term = 4;
+	repeated Page pages = 5;
 }
 
 message CompletePageRequest {

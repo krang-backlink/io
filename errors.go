@@ -20,6 +20,7 @@ type (
 	// Meta represents the attributes of a failed task.
 	Meta struct {
 		GroupSlug  string         `json:"group_slug"`
+		ProjectID  int64          `json:"project_id"`
 		TaskID     int64          `json:"task_id"`
 		ScrapeID   string         `json:"scrape_id"`
 		URL        string         `json:"url"`
