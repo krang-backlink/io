@@ -50,7 +50,7 @@ type (
 	ScrapeMetrics struct {
 		Backlinks    int           `json:"backlinks" bson:"backlinks"`
 		LoadingTime  time.Duration `json:"loading_time" bson:"loading_time"`
-		AhrefsDA     int           `json:"ahrefs_da" bson:"ahrefs_da"` // Domain Authority
+		AhrefsDR     int           `json:"ahrefs_dr" bson:"ahrefs_dr"` // Domain Ranking
 		MozPA        int           `json:"moz_pa" bson:"moz_pa"`       // Page Authority
 		MozDA        int           `json:"moz_da" bson:"moz_da"`       // Domain Authority
 		MozSpamScore int           `json:"moz_spam_score" bson:"moz_spam_score"`
