@@ -19,6 +19,7 @@ type (
 		GroupSlug      string              `json:"group_slug" bson:"group_slug,omitempty"`
 		ProjectID      int64               `json:"project_id" bson:"project_id,omitempty"`
 		TaskID         int64               `json:"task_id" bson:"task_id,omitempty" `
+		TemplateID     *int64              `json:"template_id" bson:"template_id,omitempty" `
 		SearchTerm     string              `json:"search_term" bson:"search_term"`
 		RelevancyScore int                 `json:"relevancy_score" bson:"relevancy_score"`
 		SiteScore      int                 `json:"site_score" bson:"site_score"`
