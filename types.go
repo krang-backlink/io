@@ -20,8 +20,8 @@ type (
 		ProjectID      int64               `json:"project_id" bson:"project_id,omitempty"`
 		TaskID         int64               `json:"task_id" bson:"task_id,omitempty" `
 		SearchTerm     string              `json:"search_term" bson:"search_term"`
-		RelevancyScore uint                `json:"relevancy_score" bson:"relevancy_score"`
-		SiteScore      uint                `json:"site_score" bson:"site_score"`
+		RelevancyScore int                 `json:"relevancy_score" bson:"relevancy_score"`
+		SiteScore      int                 `json:"site_score" bson:"site_score"`
 		Scrape         Scrape              `json:"scrape" bson:"scrape"`
 		Message        string              `json:"message" bson:"message"`
 		Status         PageStatus          `json:"status" bson:"status"`
