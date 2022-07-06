@@ -23,6 +23,7 @@ type (
 		ProjectID  int64          `json:"project_id"`
 		TaskID     int64          `json:"task_id"`
 		ScrapeID   string         `json:"scrape_id"`
+		TemplateID int64          `json:"template_id"`
 		URL        string         `json:"url"`
 		SearchTerm string         `json:"search_term"`
 		Data       map[string]any `json:"data"`
