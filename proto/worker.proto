@@ -10,8 +10,9 @@ message DispatchRequest {
 	int64 task_id = 1;
 	string group_slug = 2;
 	int64 project_id = 3;
-	string search_term = 4;
-	repeated Page pages = 5;
+	int64 template_id = 4;
+	string search_term = 5;
+	repeated Page pages = 6;
 }
 
 message CompletePageRequest {
@@ -27,7 +28,8 @@ message Page {
 	string group_slug = 4;
 	int64 project_id = 5;
 	int64 task_id = 6;
-	string search_term = 7;
+	int64 template_id = 7;
+	string search_term = 8;
 }
 
 service Worker {
