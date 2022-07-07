@@ -41,11 +41,17 @@ type (
 	// ScrapeContent represents the HTML markup of a page including any
 	// <body> content that's relevant for scoring.
 	ScrapeContent struct {
-		H1            string   `json:"h1" bson:"h1"`
-		H2            string   `json:"h2" bson:"h2"`
-		Title         string   `json:"title" bson:"title"`
-		ExternalLinks int      `json:"external_links" bson:"external_links"`
-		Keywords      []string `json:"keywords" bson:"keywords"`
+		H1            string         `json:"h1" bson:"h1"`
+		H2            string         `json:"h2" bson:"h2"`
+		Title         string         `json:"title" bson:"title"`
+		ExternalLinks int            `json:"external_links" bson:"external_links"`
+		Keywords      ScrapeKeywords `json:"keywords" bson:"keywords"`
+	}
+	// ScrapeKeywords represents a singular entity extracted from
+	// a given piece of text.
+	ScrapeKeywords struct {
+		Term     string  `json:"term"`
+		Salience float64 `json:"salience"`
 	}
 	// ScrapeMetrics represents the scores and metrics retrieved from
 	// Ahrefs, Moz and Majestic.
