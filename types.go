@@ -16,10 +16,10 @@ type (
 		ID             primitive.ObjectID  `json:"id" bson:"_id,omitempty"`
 		ScrapeID       *primitive.ObjectID `json:"scrape_id" bson:"scrape_id"`
 		URL            string              `json:"url" bson:"url"`
-		GroupSlug      string              `json:"group_slug" bson:"group_slug,omitempty"`
-		ProjectID      int64               `json:"project_id" bson:"project_id,omitempty"`
-		TaskID         int64               `json:"task_id" bson:"task_id,omitempty"`
-		TemplateID     *int64              `json:"template_id" bson:"template_id,omitempty"`
+		GroupSlug      string              `json:"group_slug" bson:"group_slug"`
+		ProjectID      int64               `json:"project_id" bson:"project_id"`
+		TaskID         int64               `json:"task_id" bson:"task_id"`
+		TemplateID     *int64              `json:"template_id" bson:"template_id"`
 		SearchTerm     string              `json:"search_term" bson:"search_term"`
 		RelevancyScore int                 `json:"relevancy_score" bson:"relevancy_score"`
 		SiteScore      int                 `json:"site_score" bson:"site_score"`
