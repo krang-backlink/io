@@ -50,8 +50,8 @@ type (
 	// ScrapeKeyword represents a singular entity extracted from
 	// a given piece of text.
 	ScrapeKeyword struct {
-		Term     string  `json:"term"`
-		Salience float64 `json:"salience"`
+		Term     string  `json:"term" bson:"term"`
+		Salience float64 `json:"salience" bson:"salience"`
 	}
 	// ScrapeMetrics represents the scores and metrics retrieved from
 	// Ahrefs, Moz and Majestic.
