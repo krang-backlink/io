@@ -34,9 +34,9 @@ type (
 	Scrape struct {
 		ID         primitive.ObjectID `json:"id" bson:"_id,omitempty"`
 		URL        string             `json:"url" bson:"url"`
-		HTTPStatus int                `json:"http_status" bson:"http_status,omitempty"`
-		Content    ScrapeContent      `json:"content" bson:"content,omitempty"`
-		Metrics    ScrapeMetrics      `json:"metrics" bson:"metrics,omitempty"`
+		HTTPStatus int                `json:"http_status" bson:"http_status"`
+		Content    ScrapeContent      `json:"content" bson:"content"`
+		Metrics    ScrapeMetrics      `json:"metrics" bson:"metrics"`
 	}
 	// ScrapeContent represents the HTML markup of a page including any
 	// <body> content that's relevant for scoring.
