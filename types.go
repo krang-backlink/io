@@ -23,7 +23,7 @@ type (
 		SearchTerm     string              `json:"search_term" bson:"search_term"`
 		RelevancyScore int                 `json:"relevancy_score" bson:"relevancy_score"`
 		SiteScore      int                 `json:"site_score" bson:"site_score"`
-		Scrape         Scrape              `json:"scrape" bson:"-"`
+		Scrape         Scrape              `json:"scrape" bson:"scrape,omitempty"`
 		Message        string              `json:"message" bson:"message"`
 		Status         PageStatus          `json:"status" bson:"status"`
 		UpdatedAt      time.Time           `json:"updated_at" bson:"updated_at"`
