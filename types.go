@@ -18,8 +18,8 @@ type (
 		URL            string              `json:"url" bson:"url"`
 		GroupSlug      string              `json:"group_slug" bson:"group_slug,omitempty"`
 		ProjectID      int64               `json:"project_id" bson:"project_id,omitempty"`
-		TaskID         int64               `json:"task_id" bson:"task_id,omitempty" `
-		TemplateID     *int64              `json:"template_id" bson:"template_id,omitempty" `
+		TaskID         int64               `json:"task_id" bson:"task_id,omitempty"`
+		TemplateID     *int64              `json:"template_id" bson:"template_id,omitempty"`
 		SearchTerm     string              `json:"search_term" bson:"search_term"`
 		RelevancyScore int                 `json:"relevancy_score" bson:"relevancy_score"`
 		SiteScore      int                 `json:"site_score" bson:"site_score"`
@@ -41,11 +41,17 @@ type (
 	// ScrapeContent represents the HTML markup of a page including any
 	// <body> content that's relevant for scoring.
 	ScrapeContent struct {
-		H1            string   `json:"h1" bson:"h1"`
-		H2            string   `json:"h2" bson:"h2"`
-		Title         string   `json:"title" bson:"title"`
-		ExternalLinks int      `json:"external_links" bson:"external_links"`
-		Keywords      []string `json:"keywords" bson:"keywords"`
+		H1            string          `json:"h1" bson:"h1"`
+		H2            string          `json:"h2" bson:"h2"`
+		Title         string          `json:"title" bson:"title"`
+		ExternalLinks int             `json:"external_links" bson:"external_links"`
+		Keywords      []ScrapeKeyword `json:"keywords" bson:"keywords"`
+	}
+	// ScrapeKeyword represents a singular entity extracted from
+	// a given piece of text.
+	ScrapeKeyword struct {
+		Term     string  `json:"term"`
+		Salience float64 `json:"salience"`
 	}
 	// ScrapeMetrics represents the scores and metrics retrieved from
 	// Ahrefs, Moz and Majestic.
