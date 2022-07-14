@@ -22,6 +22,6 @@ message Links {
 	float Dr = 6;
 }
 
-service BacklinksService {
+service BacklinkExtractor {
 	rpc GetBacklinks (BacklinksRequest) returns (BacklinksResponse) {}
 }

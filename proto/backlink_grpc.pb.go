@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// BacklinksServiceClient is the client API for BacklinksService service.
+// BacklinkExtractorClient is the client API for BacklinkExtractor service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type BacklinksServiceClient interface {
+type BacklinkExtractorClient interface {
 	GetBacklinks(ctx context.Context, in *BacklinksRequest, opts ...grpc.CallOption) (*BacklinksResponse, error)
 }
 
-type backlinksServiceClient struct {
+type backlinkExtractorClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewBacklinksServiceClient(cc grpc.ClientConnInterface) BacklinksServiceClient {
-	return &backlinksServiceClient{cc}
+func NewBacklinkExtractorClient(cc grpc.ClientConnInterface) BacklinkExtractorClient {
+	return &backlinkExtractorClient{cc}
 }
 
-func (c *backlinksServiceClient) GetBacklinks(ctx context.Context, in *BacklinksRequest, opts ...grpc.CallOption) (*BacklinksResponse, error) {
+func (c *backlinkExtractorClient) GetBacklinks(ctx context.Context, in *BacklinksRequest, opts ...grpc.CallOption) (*BacklinksResponse, error) {
 	out := new(BacklinksResponse)
-	err := c.cc.Invoke(ctx, "/krang.BacklinksService/GetBacklinks", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/krang.BacklinkExtractor/GetBacklinks", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// BacklinksServiceServer is the server API for BacklinksService service.
-// All implementations must embed UnimplementedBacklinksServiceServer
+// BacklinkExtractorServer is the server API for BacklinkExtractor service.
+// All implementations must embed UnimplementedBacklinkExtractorServer
 // for forward compatibility
-type BacklinksServiceServer interface {
+type BacklinkExtractorServer interface {
 	GetBacklinks(context.Context, *BacklinksRequest) (*BacklinksResponse, error)
-	mustEmbedUnimplementedBacklinksServiceServer()
+	mustEmbedUnimplementedBacklinkExtractorServer()
 }
 
-// UnimplementedBacklinksServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedBacklinksServiceServer struct {
+// UnimplementedBacklinkExtractorServer must be embedded to have forward compatible implementations.
+type UnimplementedBacklinkExtractorServer struct {
 }
 
-func (UnimplementedBacklinksServiceServer) GetBacklinks(context.Context, *BacklinksRequest) (*BacklinksResponse, error) {
+func (UnimplementedBacklinkExtractorServer) GetBacklinks(context.Context, *BacklinksRequest) (*BacklinksResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBacklinks not implemented")
 }
-func (UnimplementedBacklinksServiceServer) mustEmbedUnimplementedBacklinksServiceServer() {}
+func (UnimplementedBacklinkExtractorServer) mustEmbedUnimplementedBacklinkExtractorServer() {}
 
-// UnsafeBacklinksServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to BacklinksServiceServer will
+// UnsafeBacklinkExtractorServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to BacklinkExtractorServer will
 // result in compilation errors.
-type UnsafeBacklinksServiceServer interface {
-	mustEmbedUnimplementedBacklinksServiceServer()
+type UnsafeBacklinkExtractorServer interface {
+	mustEmbedUnimplementedBacklinkExtractorServer()
 }
 
-func RegisterBacklinksServiceServer(s grpc.ServiceRegistrar, srv BacklinksServiceServer) {
-	s.RegisterService(&BacklinksService_ServiceDesc, srv)
+func RegisterBacklinkExtractorServer(s grpc.ServiceRegistrar, srv BacklinkExtractorServer) {
+	s.RegisterService(&BacklinkExtractor_ServiceDesc, srv)
 }
 
-func _BacklinksService_GetBacklinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _BacklinkExtractor_GetBacklinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BacklinksRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BacklinksServiceServer).GetBacklinks(ctx, in)
+		return srv.(BacklinkExtractorServer).GetBacklinks(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/krang.BacklinksService/GetBacklinks",
+		FullMethod: "/krang.BacklinkExtractor/GetBacklinks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BacklinksServiceServer).GetBacklinks(ctx, req.(*BacklinksRequest))
+		return srv.(BacklinkExtractorServer).GetBacklinks(ctx, req.(*BacklinksRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// BacklinksService_ServiceDesc is the grpc.ServiceDesc for BacklinksService service.
+// BacklinkExtractor_ServiceDesc is the grpc.ServiceDesc for BacklinkExtractor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var BacklinksService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "krang.BacklinksService",
-	HandlerType: (*BacklinksServiceServer)(nil),
+var BacklinkExtractor_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "krang.BacklinkExtractor",
+	HandlerType: (*BacklinkExtractorServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetBacklinks",
-			Handler:    _BacklinksService_GetBacklinks_Handler,
+			Handler:    _BacklinkExtractor_GetBacklinks_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
