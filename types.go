@@ -28,16 +28,16 @@ type (
 		Status         PageStatus          `json:"status" bson:"status"`
 		UpdatedAt      time.Time           `json:"updated_at" bson:"updated_at"`
 		CreatedAt      time.Time           `json:"created_at" bson:"created_at"`
-	}
+	} //@name Page
 	// Scrape represents an individual scrape of a page and its
 	// various metrics.
 	Scrape struct {
 		ID         primitive.ObjectID `json:"id" bson:"_id,omitempty"`
-		URL        string             `json:"url" bson:"url"`
+		URL        string             `json:"-" bson:"url" swagggerignore:"true"`
 		HTTPStatus int                `json:"http_status" bson:"http_status"`
 		Content    ScrapeContent      `json:"content" bson:"content"`
 		Metrics    ScrapeMetrics      `json:"metrics" bson:"metrics"`
-	}
+	} //@name Scrape
 	// ScrapeContent represents the HTML markup of a page including any
 	// <body> content that's relevant for scoring.
 	ScrapeContent struct {
@@ -46,13 +46,13 @@ type (
 		Title         string          `json:"title" bson:"title"`
 		ExternalLinks int             `json:"external_links" bson:"external_links"`
 		Keywords      []ScrapeKeyword `json:"keywords" bson:"keywords"`
-	}
+	} //@name ScrapeContent
 	// ScrapeKeyword represents a singular entity extracted from
 	// a given piece of text.
 	ScrapeKeyword struct {
 		Term     string  `json:"term" bson:"term"`
 		Salience float64 `json:"salience" bson:"salience"`
-	}
+	} //@name ScrapeKeyword
 	// ScrapeMetrics represents the scores and metrics retrieved from
 	// Ahrefs, Moz and Majestic.
 	ScrapeMetrics struct {
@@ -64,7 +64,7 @@ type (
 		MozSpamScore int           `json:"moz_spam_score" bson:"moz_spam_score"`
 		MajesticCF   int           `json:"majestic_cf" bson:"majestic_cf"` // Citation Flow
 		MajesticTF   int           `json:"majestic_tf" bson:"majestic_tf"` // Trust Flow
-	}
+	} //@name ScrapeMetrics
 	// PageStatus status represents the status of a page task.
 	PageStatus string
 )

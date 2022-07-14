@@ -11,7 +11,6 @@ message DispatchRequest {
 	string group_slug = 2;
 	int64 project_id = 3;
 	int64 template_id = 4;
-	string search_term = 5;
 	repeated Page pages = 6;
 }
 
