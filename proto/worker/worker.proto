@@ -21,12 +21,11 @@ message CompletePageRequest {
 }
 
 message CompleteLinkCheckRequest {
-	string group_slug = 1;
-	int64 project_id = 2;
-	bool exists = 3;
-	string link_type = 4;
-	string link_text = 5;
-	bool nofollow = 6;
+	int64 link_id = 1;
+	bool exists = 2;
+	string link_type = 3;
+	string link_text = 4;
+	bool nofollow = 5;
 }
 
 message Page {
