@@ -38,7 +38,7 @@ func NewWorkerClient(cc grpc.ClientConnInterface) WorkerClient {
 
 func (c *workerClient) DispatchTask(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/krang.Worker/DispatchTask", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/worker.Worker/DispatchTask", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *workerClient) DispatchTask(ctx context.Context, in *DispatchRequest, op
 
 func (c *workerClient) CompletePage(ctx context.Context, in *CompletePageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/krang.Worker/CompletePage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/worker.Worker/CompletePage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *workerClient) CompletePage(ctx context.Context, in *CompletePageRequest
 
 func (c *workerClient) CompleteLinkCheck(ctx context.Context, in *CompleteLinkCheckRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/krang.Worker/CompleteLinkCheck", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/worker.Worker/CompleteLinkCheck", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func _Worker_DispatchTask_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/krang.Worker/DispatchTask",
+		FullMethod: "/worker.Worker/DispatchTask",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WorkerServer).DispatchTask(ctx, req.(*DispatchRequest))
@@ -127,7 +127,7 @@ func _Worker_CompletePage_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/krang.Worker/CompletePage",
+		FullMethod: "/worker.Worker/CompletePage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WorkerServer).CompletePage(ctx, req.(*CompletePageRequest))
@@ -145,7 +145,7 @@ func _Worker_CompleteLinkCheck_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/krang.Worker/CompleteLinkCheck",
+		FullMethod: "/worker.Worker/CompleteLinkCheck",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WorkerServer).CompleteLinkCheck(ctx, req.(*CompleteLinkCheckRequest))
@@ -157,7 +157,7 @@ func _Worker_CompleteLinkCheck_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Worker_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "krang.Worker",
+	ServiceName: "worker.Worker",
 	HandlerType: (*WorkerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

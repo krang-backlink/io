@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
-package krang;
+package worker;
 
 option go_package = "github.com/krang-backlink/io/worker;worker";
 
@@ -24,9 +24,9 @@ message CompleteLinkCheckRequest {
 	string group_slug = 1;
 	int64 project_id = 2;
 	bool exists = 3;
-	string link_text = 4;
-	string nofollow = 5;
-	bool image = 6;
+	string link_type = 4;
+	string link_text = 5;
+	bool nofollow = 6;
 }
 
 message Page {
