@@ -4,7 +4,7 @@
 // - protoc             v3.21.2
 // source: backlink/linksnatcher.proto
 
-package backlink
+package linksnatcherGrpc
 
 import (
 	context "context"
@@ -35,7 +35,7 @@ func NewBacklinksServiceClient(cc grpc.ClientConnInterface) BacklinksServiceClie
 
 func (c *backlinksServiceClient) GetBacklinks(ctx context.Context, in *Req, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
-	err := c.cc.Invoke(ctx, "/krang.BacklinksService/GetBacklinks", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/linksnatcherGrpc.BacklinksService/GetBacklinks", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func _BacklinksService_GetBacklinks_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/krang.BacklinksService/GetBacklinks",
+		FullMethod: "/linksnatcherGrpc.BacklinksService/GetBacklinks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BacklinksServiceServer).GetBacklinks(ctx, req.(*Req))
@@ -92,7 +92,7 @@ func _BacklinksService_GetBacklinks_Handler(srv interface{}, ctx context.Context
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var BacklinksService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "krang.BacklinksService",
+	ServiceName: "linksnatcherGrpc.BacklinksService",
 	HandlerType: (*BacklinksServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

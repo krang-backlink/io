@@ -1,8 +1,7 @@
 syntax = "proto3";
+package linksnatcherGrpc;
 
-option go_package = "github.com/krang-backlink/io/backlink;backlink";
-
-package krang;
+option go_package = "./linksnatcherGrpc";
 
 message Req {
 	string url = 1;
@@ -25,3 +24,4 @@ message Response {
 service BacklinksService {
 	rpc GetBacklinks (Req) returns (Response) {}
 }
+
