@@ -4,7 +4,7 @@
 // - protoc             v3.21.2
 // source: worker/worker.proto
 
-package worker
+package grpc_worker
 
 import (
 	context "context"
