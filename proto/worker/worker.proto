@@ -4,7 +4,7 @@ import "google/protobuf/empty.proto";
 
 package krang;
 
-option go_package = "github.com/krang-backlink/io/worker;gworker";
+option go_package = "github.com/krang-backlink/io/worker;worker";
 
 message DispatchRequest {
 	int64 task_id = 1;
