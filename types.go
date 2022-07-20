@@ -65,6 +65,14 @@ type (
 		MajesticCF   int           `json:"majestic_cf" bson:"majestic_cf"` // Citation Flow
 		MajesticTF   int           `json:"majestic_tf" bson:"majestic_tf"` // Trust Flow
 	} //@name ScrapeMetrics
+	// BackLinkCheck represents the data sent to the Lambda function
+	// for checking if a backlink appears on the page.
+	BackLinkCheck struct {
+		GroupSlug string `json:"group_slug" bson:"group_slug"`
+		ProjectID int64  `json:"project_id" bson:"project_id"`
+		URL       string `json:"url" bson:"url"`
+		Link      string `json:"link" bson:"link"`
+	} //@name BackLinkCheck
 	// PageStatus status represents the status of a page task.
 	PageStatus string
 )

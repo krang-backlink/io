@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option go_package = "github.com/krang-backlink/io/backlink;backlink";
+
+package krang;
+
+message Req {
+	string url = 1;
+	string mode = 2;
+}
+
+message Response {
+	message Links {
+		string PageTitle = 1;
+		string Url = 2;
+		string Type = 3;
+		string AnchorAlt = 4;
+		bool IsNofollow = 5;
+		float Dr = 6;
+	}
+
+	repeated Links Backlinks = 1;
+}
+
+service BacklinksService {
+	rpc GetBacklinks (Req) returns (Response) {}
+}
