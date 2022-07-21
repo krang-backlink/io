@@ -68,9 +68,10 @@ type (
 	// BackLinkCheck represents the data sent to the Lambda function
 	// for checking if a backlink appears on the page.
 	BackLinkCheck struct {
-		LinkID int64  `json:"link_id" bson:"link_id"`
-		URL    string `json:"url" bson:"url"`
-		Link   string `json:"link" bson:"link"`
+		GroupSlug string `json:"group_slug" bson:"group_slug"`
+		LinkID    int64  `json:"link_id" bson:"link_id"`
+		URL       string `json:"url" bson:"url"`
+		Link      string `json:"link" bson:"link"`
 	} //@name BackLinkCheck
 	// PageStatus status represents the status of a page task.
 	PageStatus string
