@@ -28,7 +28,7 @@ type (
 		Status         PageStatus          `json:"status" bson:"status"`
 		UpdatedAt      time.Time           `json:"updated_at" bson:"updated_at"`
 		CreatedAt      time.Time           `json:"created_at" bson:"created_at"`
-		LambdaError    any                 `json:"lambda_error" bson:"lambda_error"`
+		Error          any                 `json:"error" bson:"error"`
 	} //@name Page
 	// Scrape represents an individual scrape of a page and its
 	// various metrics.
