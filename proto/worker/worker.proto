@@ -10,7 +10,6 @@ message DispatchRequest {
 	int64 task_id = 1;
 	string group_slug = 2;
 	int64 project_id = 3;
-	int64 template_id = 4;
 	repeated Page pages = 6;
 }
 
@@ -36,7 +35,6 @@ message Page {
 	string group_slug = 4;
 	int64 project_id = 5;
 	int64 task_id = 6;
-	int64 template_id = 7;
 	string search_term = 8;
 }
 
