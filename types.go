@@ -23,11 +23,8 @@ type (
 		RelevancyScore int                 `json:"relevancy_score" bson:"relevancy_score"`
 		SiteScore      int                 `json:"site_score" bson:"site_score"`
 		Scrape         Scrape              `json:"scrape" bson:"scrape,omitempty"`
-		Message        string              `json:"message" bson:"message"`
-		Status         PageStatus          `json:"status" bson:"status"`
 		UpdatedAt      time.Time           `json:"updated_at" bson:"updated_at"`
 		CreatedAt      time.Time           `json:"created_at" bson:"created_at"`
-		Error          any                 `json:"error" bson:"error"`
 	} //@name Page
 	// Scrape represents an individual scrape of a page and its
 	// various metrics.
@@ -37,6 +34,9 @@ type (
 		HTTPStatus int                `json:"http_status" bson:"http_status"`
 		Content    ScrapeContent      `json:"content" bson:"content"`
 		Metrics    ScrapeMetrics      `json:"metrics" bson:"metrics"`
+		Message    string             `json:"message" bson:"message"`
+		Status     ScrapeStatus       `json:"status" bson:"status"`
+		Error      any                `json:"error" bson:"error"`
 	} //@name Scrape
 	// ScrapeContent represents the HTML markup of a page including any
 	// <body> content that's relevant for scoring.
@@ -73,18 +73,18 @@ type (
 		URL       string `json:"url" bson:"url"`
 		Link      string `json:"link" bson:"link"`
 	} //@name BackLinkCheck
-	// PageStatus status represents the status of a page task.
-	PageStatus string
+	// ScrapeStatus status represents the status of a page task.
+	ScrapeStatus string
 )
 
 const (
-	// PageStatusFailed is the status that defines
+	// ScrapeStatusFailed is the status that defines
 	// a failed page task.
-	PageStatusFailed PageStatus = "failed"
-	// PageStatusTimedOut is the status that defines
+	ScrapeStatusFailed ScrapeStatus = "failed"
+	// ScrapeStatusTimedOut is the status that defines
 	// a timed out page task.
-	PageStatusTimedOut PageStatus = "timed-out"
-	// PageStatusSuccess is the status that defines
+	ScrapeStatusTimedOut ScrapeStatus = "timed-out"
+	// ScrapeStatusSuccess is the status that defines
 	// a successful page task.
-	PageStatusSuccess PageStatus = "success"
+	ScrapeStatusSuccess ScrapeStatus = "success"
 )
