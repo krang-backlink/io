@@ -13,35 +13,35 @@ type (
 	// Error represents an error that occurred during the
 	// processing of a Krang Lambda function.
 	Error struct {
-		Err     *errors.Error `json:"error"`
-		Service string        `json:"service"` // Currently running function, for example "scrape"
-		Meta    Meta          `json:"meta"`
+		Err     *errors.Error `json:"error" bson:"error"`
+		Service string        `json:"service" bson:"service"` // Currently running function, for example "scrape"
+		Meta    Meta          `json:"meta" bson:"meta"`
 	}
 	// Meta represents the attributes of a failed task.
 	Meta struct {
-		GroupSlug  string         `json:"group_slug"`
-		ProjectID  int64          `json:"project_id"`
-		TaskID     int64          `json:"task_id"`
-		ScrapeID   string         `json:"scrape_id"`
-		URL        string         `json:"url"`
-		SearchTerm string         `json:"search_term"`
-		Data       map[string]any `json:"data"`
+		GroupSlug  string         `json:"group_slug" bson:"group_slug"`
+		ProjectID  int64          `json:"project_id" bson:"project_id"`
+		TaskID     int64          `json:"task_id" bson:"task_id"`
+		ScrapeID   string         `json:"scrape_id" bson:"scrape_id"`
+		URL        string         `json:"url" bson:"url"`
+		SearchTerm string         `json:"search_term" bson:"search_term"`
+		Data       map[string]any `json:"data" bson:"data"`
 	}
 	// marshalError is the error sent when a function
 	// or service failed.
 	marshalError struct {
-		Error   wrappingError `json:"error"`
-		Service string        `json:"service"`
-		Meta    Meta          `json:"meta"`
+		Error   wrappingError `json:"error" bson:"error"`
+		Service string        `json:"service" bson:"service"`
+		Meta    Meta          `json:"meta" bson:"meta"`
 	}
 	// wrappingError is the wrapping error features the error
 	// and file line in strings suitable for json.Marshal
 	wrappingError struct {
-		Code      string `json:"code"`
-		Message   string `json:"message"`
-		Operation string `json:"operation"`
-		Err       string `json:"error"`
-		FileLine  string `json:"file_line"`
+		Code      string `json:"code" bson:"code"`
+		Message   string `json:"message" bson:"message"`
+		Operation string `json:"operation" bson:"operation"`
+		Err       string `json:"error" bson:"error"`
+		FileLine  string `json:"file_line" bson:"file_line"`
 	}
 )
 
