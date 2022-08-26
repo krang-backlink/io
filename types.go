@@ -38,6 +38,8 @@ type (
 		Status     ScrapeStatus       `json:"status" bson:"status"`
 		Error      any                `json:"error" bson:"error"`
 		Service    string             `json:"service" bson:"service"` // Currently running function, for example "scrape"`
+		UpdatedAt  time.Time          `json:"updated_at" bson:"updated_at"`
+		CreatedAt  time.Time          `json:"created_at" bson:"created_at"`
 	} //@name Scrape
 	// ScrapeContent represents the HTML markup of a page including any
 	// <body> content that's relevant for scoring.
