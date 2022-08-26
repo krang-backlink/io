@@ -6,6 +6,7 @@ package krangio
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/ainsleyclark/errors"
 	"reflect"
 	"testing"
@@ -57,6 +58,32 @@ func TestLambdaError_Error(t *testing.T) {
 		got := e.Error()
 		want := "error marshalling lambda error"
 		if !reflect.DeepEqual(want, got) {
+			t.Fatalf("expecting %s, got %s", want, got)
+		}
+	})
+}
+
+func TestError_ToMap(t *testing.T) {
+	t.Run("With", func(t *testing.T) {
+		got := err.ToMap()
+		want := map[string]any{
+			"code":      err.Err.Code,
+			"message":   err.Err.Message,
+			"operation": err.Err.Operation,
+			"error":     err.Err.Error(),
+			"file_line": err.Err.FileLine(),
+		}
+		if !reflect.DeepEqual(want, got) {
+			t.Fatalf("expecting %s, got %s", want, got)
+		}
+	})
+
+	t.Run("Without", func(t *testing.T) {
+		tmp := Error{}
+		got := tmp.ToMap()
+		var want map[string]any
+		if !reflect.DeepEqual(want, got) {
+			fmt.Println(got)
 			t.Fatalf("expecting %s, got %s", want, got)
 		}
 	})

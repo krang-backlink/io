@@ -63,3 +63,17 @@ func (e *Error) Error() string {
 	}
 	return string(b[:])
 }
+
+// ToMap returns a map of the error if there is one.
+func (e *Error) ToMap() map[string]any {
+	if e == nil || e.Err == nil {
+		return nil
+	}
+	return map[string]any{
+		"code":      e.Err.Code,
+		"message":   e.Err.Message,
+		"operation": e.Err.Operation,
+		"error":     e.Err.Error(),
+		"file_line": e.Err.FileLine(),
+	}
+}
