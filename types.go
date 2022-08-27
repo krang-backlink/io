@@ -5,7 +5,6 @@
 package krangio
 
 import (
-	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
@@ -16,7 +15,7 @@ type (
 	Page struct {
 		ID             primitive.ObjectID  `json:"id" bson:"_id,omitempty"`
 		ScrapeID       *primitive.ObjectID `json:"scrape_id" bson:"scrape_id"`
-		UUID           *uuid.UUID          `json:"uuid,omitempty" bson:"-"` // Used for SQS dedupe.
+		UUID           string              `json:"uuid,omitempty" bson:"-"` // Used for SQS dedupe.
 		URL            string              `json:"url" bson:"url"`
 		GroupSlug      string              `json:"group_slug" bson:"group_slug"`
 		ProjectID      int64               `json:"project_id" bson:"project_id"`
