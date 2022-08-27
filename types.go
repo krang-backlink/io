@@ -92,3 +92,19 @@ const (
 	// a successful page task.
 	ScrapeStatusSuccess ScrapeStatus = "success"
 )
+
+// HasScrape determines if a page has a Scrape ID
+// attached to it.
+func (p *Page) HasScrape() bool {
+	return p.ScrapeID != nil
+}
+
+// GetObjectID returns the primitive.ObjectID if there
+// is one set, otherwise it returns nil.
+func GetObjectID(hex string) *primitive.ObjectID {
+	id, err := primitive.ObjectIDFromHex(hex)
+	if err != nil {
+		return nil
+	}
+	return &id
+}
