@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/ainsleyclark/errors"
+	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
 )
@@ -16,9 +17,6 @@ var (
 	err = Error{
 		Err:     errors.NewInternal(errors.New("error"), "message", "op"),
 		Service: "service",
-		Meta: Meta{
-			GroupSlug: "slug",
-		},
 	}
 )
 
@@ -26,9 +24,8 @@ func TestNewLambdaError(t *testing.T) {
 	want := &Error{
 		Err:     err.Err,
 		Service: err.Service,
-		Meta:    err.Meta,
 	}
-	got := NewError(err.Err, err.Service, err.Meta)
+	got := NewError(err.Err, err.Service)
 	if !reflect.DeepEqual(want, got) {
 		t.Fatalf("expecting %s, got %s", want, got)
 	}
@@ -45,21 +42,22 @@ func TestLambdaError_Error(t *testing.T) {
 		if !reflect.DeepEqual(want.Service, got.Service) {
 			t.Fatalf("expecting %s, got %s", want.Service, got.Service)
 		}
-		if !reflect.DeepEqual(want.Meta, got.Meta) {
-			t.Fatalf("expecting %s, got %s", want.Service, got.Service)
-		}
 		if !reflect.DeepEqual(want.Err.Message, got.Error.Message) {
 			t.Fatalf("expecting %s, got %s", want.Err.Message, got.Error.Message)
 		}
 	})
 
-	t.Run("Error", func(t *testing.T) {
-		e := &Error{Meta: Meta{Data: map[string]any{"wrong": make(chan int)}}}
-		got := e.Error()
-		want := "error marshalling lambda error"
-		if !reflect.DeepEqual(want, got) {
-			t.Fatalf("expecting %s, got %s", want, got)
+	t.Run("Fail", func(t *testing.T) {
+		orig := marshal
+		defer func() {
+			marshal = orig
+		}()
+		marshal = func(v any) ([]byte, error) {
+			return nil, errors.New("marshal error")
 		}
+		e := &Error{}
+		got := e.Error()
+		assert.Contains(t, got, "error marshalling lambda error")
 	})
 }
 

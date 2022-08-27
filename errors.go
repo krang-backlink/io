@@ -15,24 +15,12 @@ type (
 	Error struct {
 		Err     *errors.Error `json:"error" bson:"error"`
 		Service string        `json:"service" bson:"service"` // Currently running function, for example "scrape"
-		Meta    Meta          `json:"meta" bson:"meta"`
-	}
-	// Meta represents the attributes of a failed task.
-	Meta struct {
-		GroupSlug  string         `json:"group_slug" bson:"group_slug"`
-		ProjectID  int64          `json:"project_id" bson:"project_id"`
-		TaskID     int64          `json:"task_id" bson:"task_id"`
-		ScrapeID   string         `json:"scrape_id" bson:"scrape_id"`
-		URL        string         `json:"url" bson:"url"`
-		SearchTerm string         `json:"search_term" bson:"search_term"`
-		Data       map[string]any `json:"data" bson:"data"`
 	}
 	// marshalError is the error sent when a function
 	// or service failed.
 	marshalError struct {
 		Error   wrappingError `json:"error" bson:"error"`
 		Service string        `json:"service" bson:"service"`
-		Meta    Meta          `json:"meta" bson:"meta"`
 	}
 	// wrappingError is the wrapping error features the error
 	// and file line in strings suitable for json.Marshal
@@ -45,19 +33,21 @@ type (
 	}
 )
 
+// marshal is an alias of json.Marshal
+var marshal = json.Marshal
+
 // NewError returns a new Lambda error.
-func NewError(err error, service string, meta Meta) *Error {
+func NewError(err error, service string) *Error {
 	return &Error{
 		Err:     errors.ToError(err),
 		Service: service,
-		Meta:    meta,
 	}
 }
 
 // Error returns the JSON representation of the error
 // message by implementing the error interface.
 func (e *Error) Error() string {
-	b, err := json.Marshal(e)
+	b, err := marshal(e)
 	if err != nil {
 		return "error marshalling lambda error"
 	}
