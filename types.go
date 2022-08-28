@@ -5,6 +5,7 @@
 package krangio
 
 import (
+	"fmt"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
@@ -97,6 +98,12 @@ const (
 // attached to it.
 func (p *Page) HasScrape() bool {
 	return p.ScrapeID != nil
+}
+
+// LogMessage returns a formatted message of the page
+// including a service name,
+func (p *Page) LogMessage(service string) string {
+	return fmt.Sprintf("Service: %s, Group Slug: %s, Project ID: %d Task ID: %d, URL: %s", service, p.GroupSlug, p.ProjectID, p.TaskID, p.URL)
 }
 
 // GetObjectID returns the primitive.ObjectID if there
