@@ -51,6 +51,34 @@ func TestPage_LogMessage(t *testing.T) {
 	}
 }
 
+func TestPage_LoggerFields(t *testing.T) {
+	id := primitive.NewObjectID()
+	page := Page{
+		ID:         id,
+		ScrapeID:   &id,
+		UUID:       "",
+		GroupSlug:  "slug",
+		ProjectID:  1,
+		TaskID:     1,
+		URL:        "url",
+		SearchTerm: "",
+	}
+	got := page.LoggerFields()
+	want := map[string]any{
+		"id":          id.String(),
+		"scrape_id":   id.String(),
+		"uuid":        "",
+		"group_slug":  "slug",
+		"project_id":  int64(1),
+		"task_id":     int64(1),
+		"url":         "url",
+		"search_term": "",
+	}
+	if !reflect.DeepEqual(want, got) {
+		t.Fatalf("expecting %v, got %v", want, got)
+	}
+}
+
 func TestGetObjectID(t *testing.T) {
 	hex := primitive.NewObjectID()
 
