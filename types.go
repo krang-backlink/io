@@ -101,9 +101,30 @@ func (p *Page) HasScrape() bool {
 }
 
 // LogMessage returns a formatted message of the page
-// including a service name,
+// including a service name.
+//
+// Deprecated: As of IO v0.2.0, use LoggerFields instead.
 func (p *Page) LogMessage(service string) string {
 	return fmt.Sprintf("Service: %s, Group Slug: %s, Project ID: %d Task ID: %d, URL: %s", service, p.GroupSlug, p.ProjectID, p.TaskID, p.URL)
+}
+
+// LoggerFields returns logrus Fields to log the Page
+// meta data.
+func (p *Page) LoggerFields() map[string]any {
+	scrapeID := ""
+	if p.ScrapeID != nil {
+		scrapeID = p.ScrapeID.String()
+	}
+	return map[string]any{
+		"id":          p.ID.String(),
+		"scrape_id":   scrapeID,
+		"uuid":        p.UUID,
+		"group_slug":  p.GroupSlug,
+		"project_id":  p.ProjectID,
+		"task_id":     p.TaskID,
+		"url":         p.URL,
+		"search_term": p.SearchTerm,
+	}
 }
 
 // GetObjectID returns the primitive.ObjectID if there

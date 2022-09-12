@@ -8,8 +8,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/ainsleyclark/errors"
-	"github.com/stretchr/testify/assert"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -57,7 +57,10 @@ func TestLambdaError_Error(t *testing.T) {
 		}
 		e := &Error{}
 		got := e.Error()
-		assert.Contains(t, got, "error marshalling lambda error")
+		want := "error marshalling lambda error"
+		if !strings.Contains(got, want) {
+			t.Fatalf("expecting %s to contain %s", got, want)
+		}
 	})
 }
 
