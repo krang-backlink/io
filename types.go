@@ -100,12 +100,10 @@ func (p *Page) HasScrape() bool {
 	return p.ScrapeID != nil
 }
 
-// LogMessage returns a formatted message of the page
-// including a service name.
-//
-// Deprecated: As of IO v0.2.0, use LoggerFields instead.
+// LogMessage returns a formatted message for processing
+// Lambda functions.
 func (p *Page) LogMessage(service string) string {
-	return fmt.Sprintf("Service: %s, Group Slug: %s, Project ID: %d Task ID: %d, URL: %s", service, p.GroupSlug, p.ProjectID, p.TaskID, p.URL)
+	return fmt.Sprintf("Starting Lambda Function: %s, URL: %s", service, p.URL)
 }
 
 // LoggerFields returns logrus Fields to log the Page

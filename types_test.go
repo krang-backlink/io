@@ -39,13 +39,10 @@ func TestPage_HasScrape(t *testing.T) {
 
 func TestPage_LogMessage(t *testing.T) {
 	p := Page{
-		URL:       "url",
-		GroupSlug: "slug",
-		ProjectID: 1,
-		TaskID:    1,
+		URL: "url",
 	}
 	got := p.LogMessage("service")
-	want := "Service: service, Group Slug: slug, Project ID: 1 Task ID: 1, URL: url"
+	want := "Starting Lambda Function: service, URL: url"
 	if !reflect.DeepEqual(want, got) {
 		t.Fatalf("expecting %v, got %v", want, got)
 	}
