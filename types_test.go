@@ -63,8 +63,9 @@ func TestPage_LoggerFields(t *testing.T) {
 		URL:        "url",
 		SearchTerm: "",
 	}
-	got := page.LoggerFields()
+	got := page.LoggerFields("service")
 	want := map[string]any{
+		"service":     "service",
 		"id":          id.String(),
 		"scrape_id":   id.String(),
 		"uuid":        "",

@@ -110,12 +110,13 @@ func (p *Page) LogMessage(service string) string {
 
 // LoggerFields returns logrus Fields to log the Page
 // meta data.
-func (p *Page) LoggerFields() map[string]any {
+func (p *Page) LoggerFields(service string) map[string]any {
 	scrapeID := ""
 	if p.ScrapeID != nil {
 		scrapeID = p.ScrapeID.String()
 	}
 	return map[string]any{
+		"service":     service,
 		"id":          p.ID.String(),
 		"scrape_id":   scrapeID,
 		"uuid":        p.UUID,
