@@ -7,10 +7,9 @@ package worker;
 option go_package = "github.com/krang-backlink/io/worker;worker";
 
 message DispatchRequest {
-	int64 task_id = 1;
-	string group_slug = 2;
-	int64 project_id = 3;
-	repeated Page pages = 6;
+	string group_slug = 1;
+	int64 project_id = 2;
+	int64 task_id = 3;
 }
 
 message CompletePageRequest {
@@ -28,6 +27,12 @@ message CompleteLinkCheckRequest {
 	bool nofollow = 6;
 }
 
+message StopRequest {
+	string group_slug = 1;
+	int64 project_id = 2;
+	int64 task_id = 3;
+}
+
 message Page {
 	string id = 1;
 	string scrape_id = 2;
@@ -41,6 +46,7 @@ message Page {
 service Worker {
 	rpc DispatchTask(DispatchRequest) returns(google.protobuf.Empty) {}
 	rpc CompletePage(CompletePageRequest) returns(google.protobuf.Empty) {}
+	rpc StopTask(StopRequest) returns(google.protobuf.Empty) {}
 	rpc CompleteLinkCheck(CompleteLinkCheckRequest) returns(google.protobuf.Empty) {}
 }
 
