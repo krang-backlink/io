@@ -13,11 +13,11 @@ message DispatchRequest {
 	bool force = 4;
 }
 
-message DispatchURLRequest {
+message DispatchPagesRequest {
 	string group_slug = 1;
 	int64 project_id = 2;
 	int64 task_id = 3;
-	repeated string urls = 4;
+	repeated string ids = 4;
 }
 
 message CompletePageRequest {
@@ -53,7 +53,7 @@ message Page {
 
 service Worker {
 	rpc DispatchTask(DispatchRequest) returns(google.protobuf.Empty) {}
-	rpc DispatchURLs(DispatchURLRequest) returns(google.protobuf.Empty) {}
+	rpc DispatchPages(DispatchPagesRequest) returns(google.protobuf.Empty) {}
 	rpc CompletePage(CompletePageRequest) returns(google.protobuf.Empty) {}
 	rpc StopTask(StopRequest) returns(google.protobuf.Empty) {}
 	rpc CompleteLinkCheck(CompleteLinkCheckRequest) returns(google.protobuf.Empty) {}
