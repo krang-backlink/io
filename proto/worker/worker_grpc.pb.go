@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WorkerClient interface {
 	DispatchTask(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DispatchURLs(ctx context.Context, in *DispatchURLRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	CompletePage(ctx context.Context, in *CompletePageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	StopTask(ctx context.Context, in *StopRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	CompleteLinkCheck(ctx context.Context, in *CompleteLinkCheckRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -40,6 +41,15 @@ func NewWorkerClient(cc grpc.ClientConnInterface) WorkerClient {
 func (c *workerClient) DispatchTask(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/worker.Worker/DispatchTask", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workerClient) DispatchURLs(ctx context.Context, in *DispatchURLRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/worker.Worker/DispatchURLs", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,6 +88,7 @@ func (c *workerClient) CompleteLinkCheck(ctx context.Context, in *CompleteLinkCh
 // for forward compatibility
 type WorkerServer interface {
 	DispatchTask(context.Context, *DispatchRequest) (*emptypb.Empty, error)
+	DispatchURLs(context.Context, *DispatchURLRequest) (*emptypb.Empty, error)
 	CompletePage(context.Context, *CompletePageRequest) (*emptypb.Empty, error)
 	StopTask(context.Context, *StopRequest) (*emptypb.Empty, error)
 	CompleteLinkCheck(context.Context, *CompleteLinkCheckRequest) (*emptypb.Empty, error)
@@ -90,6 +101,9 @@ type UnimplementedWorkerServer struct {
 
 func (UnimplementedWorkerServer) DispatchTask(context.Context, *DispatchRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DispatchTask not implemented")
+}
+func (UnimplementedWorkerServer) DispatchURLs(context.Context, *DispatchURLRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DispatchURLs not implemented")
 }
 func (UnimplementedWorkerServer) CompletePage(context.Context, *CompletePageRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CompletePage not implemented")
@@ -127,6 +141,24 @@ func _Worker_DispatchTask_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(WorkerServer).DispatchTask(ctx, req.(*DispatchRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Worker_DispatchURLs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DispatchURLRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkerServer).DispatchURLs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/worker.Worker/DispatchURLs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkerServer).DispatchURLs(ctx, req.(*DispatchURLRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -195,6 +227,10 @@ var Worker_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DispatchTask",
 			Handler:    _Worker_DispatchTask_Handler,
+		},
+		{
+			MethodName: "DispatchURLs",
+			Handler:    _Worker_DispatchURLs_Handler,
 		},
 		{
 			MethodName: "CompletePage",
