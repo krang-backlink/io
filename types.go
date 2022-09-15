@@ -25,6 +25,7 @@ type (
 		RelevancyScore int                 `json:"relevancy_score" bson:"relevancy_score"`
 		SiteScore      int                 `json:"site_score" bson:"site_score"`
 		Scrape         Scrape              `json:"scrape" bson:"scrape,omitempty"`
+		Status         ScrapeStatus        `json:"status" bson:"status"`
 		UpdatedAt      time.Time           `json:"updated_at" bson:"updated_at"`
 		CreatedAt      time.Time           `json:"created_at" bson:"created_at"`
 	} //@name Page
