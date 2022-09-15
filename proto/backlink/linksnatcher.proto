@@ -6,6 +6,7 @@ option go_package = "./linksnatcherGrpc";
 message Req {
 	string url = 1;
 	string mode = 2;
+	int32 max_urls = 3;
 }
 
 message Response {
@@ -24,4 +25,3 @@ message Response {
 service BacklinksService {
 	rpc GetBacklinks (Req) returns (Response) {}
 }
-
