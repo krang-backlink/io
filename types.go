@@ -84,6 +84,9 @@ type (
 )
 
 const (
+	// ScrapeStatusProcessing is the status that defines
+	// a processing page.
+	ScrapeStatusProcessing ScrapeStatus = "processing"
 	// ScrapeStatusFailed is the status that defines
 	// a failed page task.
 	ScrapeStatusFailed ScrapeStatus = "failed"
