@@ -25,7 +25,7 @@ const _ = grpc.SupportPackageIsVersion7
 type WorkerClient interface {
 	DispatchTask(ctx context.Context, in *DispatchRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DispatchPages(ctx context.Context, in *DispatchPagesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	CompleteTask(ctx context.Context, in *CompleteTaskRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// rpc CompleteTask(CompleteTaskRequest) returns(google.protobuf.Empty) {}
 	StopTask(ctx context.Context, in *StopRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	CompleteLinkCheck(ctx context.Context, in *CompleteLinkCheckRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
@@ -56,15 +56,6 @@ func (c *workerClient) DispatchPages(ctx context.Context, in *DispatchPagesReque
 	return out, nil
 }
 
-func (c *workerClient) CompleteTask(ctx context.Context, in *CompleteTaskRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/worker.Worker/CompleteTask", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *workerClient) StopTask(ctx context.Context, in *StopRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/worker.Worker/StopTask", in, out, opts...)
@@ -89,7 +80,7 @@ func (c *workerClient) CompleteLinkCheck(ctx context.Context, in *CompleteLinkCh
 type WorkerServer interface {
 	DispatchTask(context.Context, *DispatchRequest) (*emptypb.Empty, error)
 	DispatchPages(context.Context, *DispatchPagesRequest) (*emptypb.Empty, error)
-	CompleteTask(context.Context, *CompleteTaskRequest) (*emptypb.Empty, error)
+	// rpc CompleteTask(CompleteTaskRequest) returns(google.protobuf.Empty) {}
 	StopTask(context.Context, *StopRequest) (*emptypb.Empty, error)
 	CompleteLinkCheck(context.Context, *CompleteLinkCheckRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedWorkerServer()
@@ -104,9 +95,6 @@ func (UnimplementedWorkerServer) DispatchTask(context.Context, *DispatchRequest)
 }
 func (UnimplementedWorkerServer) DispatchPages(context.Context, *DispatchPagesRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DispatchPages not implemented")
-}
-func (UnimplementedWorkerServer) CompleteTask(context.Context, *CompleteTaskRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CompleteTask not implemented")
 }
 func (UnimplementedWorkerServer) StopTask(context.Context, *StopRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StopTask not implemented")
@@ -163,24 +151,6 @@ func _Worker_DispatchPages_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Worker_CompleteTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CompleteTaskRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(WorkerServer).CompleteTask(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/worker.Worker/CompleteTask",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkerServer).CompleteTask(ctx, req.(*CompleteTaskRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Worker_StopTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(StopRequest)
 	if err := dec(in); err != nil {
@@ -231,10 +201,6 @@ var Worker_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DispatchPages",
 			Handler:    _Worker_DispatchPages_Handler,
-		},
-		{
-			MethodName: "CompleteTask",
-			Handler:    _Worker_CompleteTask_Handler,
 		},
 		{
 			MethodName: "StopTask",
