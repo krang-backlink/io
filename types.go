@@ -62,15 +62,17 @@ type (
 	// ScrapeMetrics represents the scores and metrics retrieved from
 	// Ahrefs, Moz and Majestic.
 	ScrapeMetrics struct {
-		Backlinks    int           `json:"backlinks" bson:"backlinks"`
-		LoadingTime  time.Duration `json:"loading_time" bson:"loading_time"`
-		AhrefsDR     int           `json:"ahrefs_dr" bson:"ahrefs_dr"` // Domain Ranking
-		MozPA        int           `json:"moz_pa" bson:"moz_pa"`       // Page Authority
-		MozDA        int           `json:"moz_da" bson:"moz_da"`       // Domain Authority
-		MozSpamScore int           `json:"moz_spam_score" bson:"moz_spam_score"`
-		MajesticCF   int           `json:"majestic_cf" bson:"majestic_cf"` // Citation Flow
-		MajesticTF   int           `json:"majestic_tf" bson:"majestic_tf"` // Trust Flow
+		Ahrefs ScrapeAhrefs `json:"ahrefs" bson:"ahrefs"`
 	} //@name ScrapeMetrics
+	// ScrapeAhrefs represents the metrics retrieved from the
+	// Ahrefs API including cost, rows and if it was cached.
+	ScrapeAhrefs struct {
+		AhrefsDR   int  `json:"dr" bson:"dr"` // Domain Ranking
+		AhrefsRank *int `json:"rank" bson:"rank"`
+		RowsUsed   int  `bson:"rows_used" bson:"rows_used"`
+		Cost       int  `json:"cost" bson:"cost"`
+		Cached     bool `json:"cached" bson:"cached"`
+	}
 	// BackLinkCheck represents the data sent to the Lambda function
 	// for checking if a backlink appears on the page.
 	BackLinkCheck struct {
