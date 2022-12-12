@@ -67,11 +67,11 @@ type (
 	// ScrapeAhrefs represents the metrics retrieved from the
 	// Ahrefs API including cost, rows and if it was cached.
 	ScrapeAhrefs struct {
-		AhrefsDR   int  `json:"dr" bson:"dr"` // Domain Ranking
-		AhrefsRank *int `json:"rank" bson:"rank"`
-		RowsUsed   int  `bson:"rows_used" bson:"rows_used"`
-		Cost       int  `json:"cost" bson:"cost"`
-		Cached     bool `json:"cached" bson:"cached"`
+		DR       int  `json:"dr" bson:"dr"` // Domain Ranking
+		Rank     *int `json:"rank" bson:"rank"`
+		RowsUsed int  `bson:"rows_used" bson:"rows_used"`
+		Cost     int  `json:"cost" bson:"cost"`
+		Cached   bool `json:"cached" bson:"cached"`
 	}
 	// BackLinkCheck represents the data sent to the Lambda function
 	// for checking if a backlink appears on the page.
