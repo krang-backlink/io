@@ -70,7 +70,6 @@ type (
 		DR       float64  `json:"dr" bson:"dr"` // Domain Ranking
 		Rank     *float64 `json:"rank" bson:"rank"`
 		RowsUsed int      `json:"rows_used" bson:"rows_used"`
-		Cost     float64  `json:"cost" bson:"cost"`
 		Cached   bool     `json:"cached" bson:"cached"`
 	}
 	// BackLinkCheck represents the data sent to the Lambda function
