@@ -84,7 +84,7 @@ type (
 	// PageUsage represents any costs that have been associated
 	// with the page.
 	PageUsage struct {
-		UsageAhrefs PageUsageAhrefs `json:"ahrefs" bson:"ahrefs"`
+		Ahrefs PageUsageAhrefs `json:"ahrefs" bson:"ahrefs"`
 	} //@name PageUsage
 	// PageUsageAhrefs represents the total amount of cost a
 	// singular call to Ahrefs cost.
