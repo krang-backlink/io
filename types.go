@@ -26,6 +26,7 @@ type (
 		SiteScore      int                 `json:"site_score" bson:"site_score"`
 		Scrape         Scrape              `json:"scrape" bson:"scrape,omitempty"`
 		Status         ScrapeStatus        `json:"status" bson:"status"`
+		Usage          PageUsage           `json:"usage" bson:"usage"`
 		UpdatedAt      time.Time           `json:"updated_at" bson:"updated_at"`
 		CreatedAt      time.Time           `json:"created_at" bson:"created_at"`
 	} //@name Page
@@ -67,11 +68,8 @@ type (
 	// ScrapeAhrefs represents the metrics retrieved from the
 	// Ahrefs API including cost, rows and if it was cached.
 	ScrapeAhrefs struct {
-		DR       float64  `json:"dr" bson:"dr"` // Domain Ranking
-		Rank     *float64 `json:"rank" bson:"rank"`
-		RowsUsed int      `json:"rows_used" bson:"rows_used"`
-		Cost     float64  `json:"cost" bson:"cost"`
-		Cached   bool     `json:"cached" bson:"cached"`
+		DR   float64  `json:"dr" bson:"dr"` // Domain Ranking
+		Rank *float64 `json:"rank" bson:"rank"`
 	}
 	// BackLinkCheck represents the data sent to the Lambda function
 	// for checking if a backlink appears on the page.
@@ -83,6 +81,18 @@ type (
 	} //@name BackLinkCheck
 	// ScrapeStatus status represents the status of a page task.
 	ScrapeStatus string
+	// PageUsage represents any costs that have been associated
+	// with the page.
+	PageUsage struct {
+		UsageAhrefs PageUsageAhrefs `json:"ahrefs" bson:"ahrefs"`
+	} //@name PageUsage
+	// PageUsageAhrefs represents the total amount of cost a
+	// singular call to Ahrefs cost.
+	PageUsageAhrefs struct {
+		Rows         int  `json:"rows_used" bson:"rows"`
+		UnitCostRows int  `json:"unit_cost_rows" bson:"unit_cost_rows"`
+		Cached       bool `json:"cached" bson:"cached"`
+	} //@name PageUsageAhrefs
 )
 
 const (
