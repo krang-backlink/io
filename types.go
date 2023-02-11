@@ -68,9 +68,9 @@ type (
 	// ScrapeAhrefs represents the metrics retrieved from the
 	// Ahrefs API including cost, rows and if it was cached.
 	ScrapeAhrefs struct {
-		DR   float64  `json:"dr" bson:"dr"` // Domain Ranking
-		Rank *float64 `json:"rank" bson:"rank"`
-	}
+		DR   float64  `json:"dr" bson:"dr"`     // Domain Ranking
+		Rank *float64 `json:"rank" bson:"rank"` // Ahrefs Rank
+	} //@name ScrapeAhrefs
 	// BackLinkCheck represents the data sent to the Lambda function
 	// for checking if a backlink appears on the page.
 	BackLinkCheck struct {
