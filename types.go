@@ -92,6 +92,7 @@ type (
 		Rows         int  `json:"rows_used" bson:"rows"`
 		UnitCostRows int  `json:"unit_cost_rows" bson:"unit_cost_rows"`
 		Cached       bool `json:"cached" bson:"cached"`
+		Called       bool `json:"called" bson:"called"`
 	} //@name PageUsageAhrefs
 )
 
